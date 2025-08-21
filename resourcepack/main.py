@@ -1,6 +1,7 @@
 import json
 import cv2
 import numpy as np
+import os
 
 sides = ["west", "north", "east", "south"]
 colors = ["blue", "green", "red"]
@@ -13,6 +14,12 @@ color_combos = {
 
 
 texture_size = 9
+
+# Create the necessary directories
+dirname = os.path.dirname(os.path.abspath(__file__))
+os.makedirs(os.path.join(dirname, "assets", "minecraft", "blockstates"), exist_ok=True)
+os.makedirs(os.path.join(dirname, "assets", "minecraft", "models", "block"), exist_ok=True)
+os.makedirs(os.path.join(dirname, "assets", "minecraft", "textures", "block"), exist_ok=True)
 
 # --- blockstates ---
 multipart = []
@@ -82,6 +89,8 @@ for color in colors:
 
 
 # --- textures ---
+cv2.imwrite(f"resourcepack/assets/minecraft/textures/block/background.png", np.array([[[0, 0, 0]]], dtype=np.uint8)) # Background texture (1x1 black pixel)
+
 sample_texture = np.zeros((texture_size, texture_size, 3), dtype=np.uint8)
 
 for y in range(sample_texture.shape[0]):
