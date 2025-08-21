@@ -54,6 +54,7 @@ for color in colors:
 
             "elements": [
                 {
+                    "light_emission": 15,
                     "from": [-16, -16, 32],
                     "to": [16, 32, 32],
                     "faces": {
