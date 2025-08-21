@@ -1,2 +1,8 @@
 # Minecraft_RGB_display
-Minecraft display that can display 4-bit colors with pixel to block resolution. No mods or commadblocks required (only the datapack for easier setup - it can be done manually tho good luc)
+## procesing any image to be displayable
+
+## parsing the image data to minecraft commands that can be run and the read in the game
+
+## generating the texturepack
+
+## generating the function to build the display
