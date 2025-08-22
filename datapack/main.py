@@ -29,11 +29,13 @@ def fillTheBarrel(signal_strength):
 
     return output
 
-img = cv2.imread(os.path.join(dirname, "output.png"), cv2.IMREAD_COLOR)
+def image_to_blocks(img, name, pos):
+    with open(os.path.join(dirname, "data", nameSpace, "function", f"{name}.mcfunction"), "w") as file:
+        for y in range(102):
+            for x in range(101):
+                if (x + y) % 2 == 1:
+                    file.write(
+                        f"setblock {pos[0] + x} {pos[1] + y} {pos[2]} minecraft:barrel[facing=north]{fillTheBarrel(int(img[np.clip(99 - y, 0, 99), np.clip(x, 0, 99), 2 - y % 3]//16))}\n")
 
-with open(os.path.join(dirname, "data", nameSpace, "function", "build.mcfunction"), "w") as file:
-    for y in range(102):
-        for x in range(101):
-            if (x + y) % 2 == 1:
-                file.write(
-                    f"setblock {155 + x} {76 + y} 152 minecraft:barrel[facing=north]{fillTheBarrel(int(img[np.clip(99 - y, 0, 99), np.clip(x, 0, 99), 2 - y % 3]//16))}\n")
+img = cv2.imread(os.path.join(dirname, "output.png"), cv2.IMREAD_COLOR)
+image_to_blocks(img, "image", (155, 76, 152))
