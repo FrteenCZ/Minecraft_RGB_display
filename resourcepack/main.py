@@ -32,7 +32,7 @@ for color in colors:
         for side in sides:
             part["when"][side] = "none"
 
-        part["when"]["power"] = power
+        part["when"]["power"] = str(power)
         part["when"][color_combos[color][0]] = color_combos[color][1]
 
         part["apply"]["model"] = f"block/{color}_{power}"
