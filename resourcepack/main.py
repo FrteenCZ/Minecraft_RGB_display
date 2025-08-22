@@ -6,6 +6,8 @@ import os
 sides = ["west", "north", "east", "south"]
 colors = ["blue", "green", "red"]
 
+
+# Configurable settings
 color_combos = {
     "blue": ["north", "side"],
     "green": ["south", "side"],
