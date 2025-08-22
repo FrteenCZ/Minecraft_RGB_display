@@ -45,7 +45,7 @@ output = json.dumps({"multipart": multipart})
 output = output[:-2] + ',{"when": {"OR": [{"north": "none","east": "none","south": "none","west": "none"},{"north": "side|up","east": "side|up"},{"east": "side|up","south": "side|up"},{"south": "side|up","west": "side|up"},{"west": "side|up","north": "side|up"}]},"apply": {"model": "block/redstone_dust_dot"}},{"when": {"OR": [{"north": "side|up"},{"north": "none","east": "none","south": "side|up","west": "none"}]},"apply": {"model": "block/redstone_dust_side0"}},{"when": {"OR": [{"south": "side|up"},{"north": "side|up","east": "none","south": "none","west": "none"}]},"apply": {"model": "block/redstone_dust_side_alt0"}},{"when": {"OR": [{"east": "side|up"},{"north": "none","east": "none","south": "none","west": "side|up"}]},"apply": {"model": "block/redstone_dust_side_alt1","y": 270}},{"when": {"OR": [{"west": "side|up"},{"north": "none","east": "side|up","south": "none","west": "none"}]},"apply": {"model": "block/redstone_dust_side1","y": 270}},{"when": {"north": "up"},"apply": {"model": "block/redstone_dust_up"}},{"when": {"east": "up"},"apply": {"model": "block/redstone_dust_up","y": 90}},{"when": {"south": "up"},"apply": {"model": "block/redstone_dust_up","y": 180}},{"when": {"west": "up"},"apply": {"model": "block/redstone_dust_up","y": 270}}]}'
 output = json.loads(output)
 
-with open(r"resourcepack\assets\minecraft\blockstates\redstone_wire.json", "w") as f:
+with open(os.path.join(dirname, "assets", "minecraft", "blockstates", "redstone_wire.json"), "w") as f:
     json.dump(output, f, indent=4)
 
 
@@ -83,13 +83,12 @@ for color in colors:
                 }
             ]
         }
-
-        with open(f"resourcepack/assets/minecraft/models/block/{color}_{power}.json", "w") as f:
+        with open(os.path.join(dirname, "assets", "minecraft", "models", "block", f"{color}_{power}.json"), "w") as f:
             json.dump(model, f, indent=4)
 
 
 # --- textures ---
-cv2.imwrite(f"resourcepack/assets/minecraft/textures/block/background.png", np.array([[[0, 0, 0]]], dtype=np.uint8)) # Background texture (1x1 black pixel)
+cv2.imwrite(os.path.join(dirname, "assets", "minecraft", "textures", "block", "background.png"), np.array([[[0, 0, 0]]], dtype=np.uint8)) # Background texture (1x1 black pixel)
 
 sample_texture = np.zeros((texture_size, texture_size, 3), dtype=np.uint8)
 
@@ -109,4 +108,4 @@ for color in range(len(colors)):
         texture[:, :, color] = default_texture[:, :, color] * i
         texture[:, :, 3] = default_texture[:, :, color] * 15
 
-        cv2.imwrite(f"resourcepack/assets/minecraft/textures/block/{colors[color]}_{i}.png", texture)
+        cv2.imwrite(os.path.join(dirname, "assets", "minecraft", "textures", "block", f"{colors[color]}_{i}.png"), texture)
