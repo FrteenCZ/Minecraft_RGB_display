@@ -37,5 +37,11 @@ def image_to_blocks(img, name, pos):
                     file.write(
                         f"setblock {pos[0] + x} {pos[1] + y} {pos[2]} minecraft:barrel[facing=north]{fillTheBarrel(int(img[np.clip(99 - y, 0, 99), np.clip(x, 0, 99), 2 - y % 3]//16))}\n")
 
-img = cv2.imread(os.path.join(dirname, "output.png"), cv2.IMREAD_COLOR)
-image_to_blocks(img, "image", (155, 76, 152))
+input_image_paths = os.listdir(os.path.join(dirname, "input_images"))
+print(input_image_paths)
+for image_path in input_image_paths:
+    if image_path.endswith(".png"):
+        img = cv2.imread(os.path.join(dirname, "input_images", image_path), cv2.IMREAD_COLOR)
+        image_to_blocks(img, os.path.splitext(image_path)[0], (155, 76, 152))
+    else:
+        print(f"Skipping non-png file: {image_path}")
