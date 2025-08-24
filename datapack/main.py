@@ -64,8 +64,10 @@ def process_image(img, width=100, height=100):
 input_image_paths = os.listdir(os.path.join(dirname, "input_images"))
 input_image_paths = [f for f in input_image_paths if f.endswith(".png")] # Filter only .png files
 
+cols = math.ceil(math.sqrt(len(input_image_paths)))
+rows = math.ceil(len(input_image_paths) / cols)
 
-figure, axes = plt.subplots(1, len(input_image_paths), figsize=(4*len(input_image_paths), 4))
+figure, axes = plt.subplots(rows, cols, figsize=(cols * 4, rows * 4))
 
 # If there's only one image, wrap axes in a list for consistency
 if len(input_image_paths) == 1:
@@ -76,10 +78,12 @@ for i, path in enumerate(input_image_paths):
     img = process_image(img)
     image_to_blocks(img, os.path.splitext(path)[0], (155, 76, 152))
 
-    axes[i].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-    axes[i].set_title(os.path.splitext(path)[0])
-    axes[i].axis("off")
+    axes[i // cols, i % cols].imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    axes[i // cols, i % cols].set_title(os.path.splitext(path)[0])
+    axes[i // cols, i % cols].axis("off")
 
-    plt.pause(0.5)  # short pause so the figure updates
+    plt.axis("off")
+    plt.draw()
+    plt.pause(0.001)
 
 plt.show()
